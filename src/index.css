@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --page-bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-muted: #FFFFFF; /* Pure white for clean light mode cards */
+  --surface-accent: #E0F2FE;
+  --sidebar: #F0F9FF;
+  --sidebar-border: #BAE6FD;
+  --primary: #0EA5E9;
+  --primary-hover: #0284C7;
+  --primary-muted: #E0F2FE;
+  --text-primary: #0C4A6E;
+  --text-secondary: #64748B;
+  --text-muted: #94A3B8;
+  --border: #E0F2FE;
+  --border-subtle: #F1F5F9;
+}
+
+/* Dark Palette provided by user - Refined by AI for better contrast */
+.dark {
+  --page-bg: #0B0F1A;
+  --surface: #151C2C;
+  --surface-muted: #1E293B;
+  --surface-accent: #1E293B;
+  --sidebar: #090D16;
+  --sidebar-border: #1E293B;
+  --primary: #0EA5E9;
+  --primary-hover: #38BDF8;
+  --primary-muted: rgba(14, 165, 233, 0.15);
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --border: #2D3748;
+  --border-subtle: #1A202C;
+}
+
+@theme {
+  --color-page-bg: var(--page-bg);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-accent: var(--surface-accent);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-muted: var(--primary-muted);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+
+  --shadow-premium: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-premium-hover: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+}
+
+
+@layer base {
+  body {
+    @apply bg-page-bg text-text-primary antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+
+@layer components {
+  .card-premium {
+    @apply bg-surface border border-border rounded-xl shadow-[var(--shadow-premium)] transition-all duration-200 hover:shadow-[var(--shadow-premium-hover)];
+  }
+  
+  .btn-primary {
+    @apply px-4 py-2 bg-primary text-white rounded-lg font-medium transition-all hover:bg-primary-hover active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 text-text-muted rounded-lg font-medium transition-all hover:bg-page-bg hover:text-text-primary;
+  }
+}
