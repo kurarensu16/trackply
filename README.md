@@ -1,73 +1,56 @@
-# React + TypeScript + Vite
+# Trackply: The Ultimate Career Growth & Job Search Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Trackply is a premium, AI-powered job application tracker designed to streamline your career search. Built with a focus on high-performance aesthetics and developer-grade functionality, it helps you organize your pipeline, optimize your profile with AI, and prepare for interviews—all in one place.
 
-Currently, two official plugins are available:
+## Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Professional Pipeline Management
+* Kanban Board: A fluid, drag-and-drop pipeline to track status from "Saved" to "Offer".
+* Mobile-First Design: A fully responsive interface with a dedicated tabbed mobile view for the pipeline.
+* Activity Timeline: Automatically log dates, stage changes, and notes for every application.
 
-## React Compiler
+### AI-Powered Insights (Powered by Groq)
+* Smart JD Summarizer: Instantly extract key responsibilities and required skills from job URLs or descriptions.
+* Skill Gap Analysis: Compare your profile against job requirements to see exactly where you stand.
+* AI Interview Coach: Generate tailored interview questions, rationales, and suggested talking points based on the specific job and your resume.
+* Custom AI Personas: Tune the AI's "Strictness" and "Tone" to match your preferred interview prep style.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Integrated Resume Builder
+* Live Preview: Edit your profile and watch your resume update in real-time with professional templates (Modern, Harvard).
+* PDF Export: High-fidelity print support to download your resumes instantly.
+* Profile-Aware AI: Your AI insights are automatically contextualized by your stored profile data.
 
-## Expanding the ESLint configuration
+### Proactive Notifications & Alerts
+* Daily Reminders: Automatic notifications for upcoming interviews.
+* Staleness Tracking: Nudges for applications that haven't been updated in 14 days.
+* Integrated Dropdown: A sleek, interactive notification drawer in the TopBar.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Premium Aesthetics & Customization
+* Dark Mode & Glassmorphism: A stunning, modern interface with real-time theme switching.
+* Custom Accent Colors: Personalize the entire app's primary color via Settings.
+* Ultra-Responsive: Optimized for everything from ultrawide monitors to smartphones.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Data Privacy & Management
+* Full Data Export: Download your entire workspace in JSON or CSV format at any time.
+* Permanent Erasure: One-click workspace scrubbing for total user control over data.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+* Frontend: React, TypeScript, Vite, Tailwind CSS
+* Backend & DB: Convex (Real-time database, File Storage, Crons)
+* Authentication: Clerk / Convex Auth
+* AI Engine: Groq API (Llama3-70b/8b)
+* Icons & UI: Lucide React, Framer Motion
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Clone the repo: `git clone https://github.com/your-username/trackply.git`
+2. Install dependencies: `npm install`
+3. Environment Setup: Create a `.env.local` with your `CONVEX_DEPLOYMENT` and `GROQ_API_KEY`.
+4. Run Dev Server: `npm run dev` and `npx convex dev` in parallel.
+
+---
+
+*Built for job seekers who want a competitive edge.*
