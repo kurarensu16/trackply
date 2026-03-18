@@ -23,8 +23,9 @@ export default function Sidebar({ currentPage, onPageChange, isCollapsed }: Side
 
   return (
     <aside className={cn(
-      "border-r border-border bg-surface flex flex-col h-screen sticky top-0 transition-all duration-300 ease-in-out",
-      isCollapsed ? "w-20" : "w-64"
+      "border-r border-border bg-surface flex flex-col h-screen transition-all duration-300 ease-in-out",
+      "fixed inset-y-0 left-0 z-50 w-64 md:sticky md:top-0",
+      isCollapsed ? "md:w-20 -translate-x-full md:translate-x-0" : "md:w-64 translate-x-0 shadow-2xl md:shadow-none"
     )}>
       <div className={cn("p-6 flex items-center gap-3 overflow-hidden", isCollapsed && "justify-center px-0")}>
         <div className="w-8 h-8 min-w-8 bg-primary rounded-lg flex items-center justify-center">

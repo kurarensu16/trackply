@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { useReactToPrint } from "react-to-print";
+import { cn } from "../lib/utils";
 import {
   Plus, Printer, Trash2, ChevronDown, ChevronUp,
   Briefcase, GraduationCap, Wrench, FolderGit2,
@@ -91,6 +92,7 @@ export default function ResumeBuilder() {
   const [data, setData] = useState<ResumeData>(EMPTY_RESUME);
   const [saving, setSaving] = useState(false);
   const [saveTimer, setSaveTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const [activeView, setActiveView] = useState<"editor" | "preview">("editor");
 
   const printRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({ contentRef: printRef });
@@ -181,7 +183,7 @@ export default function ResumeBuilder() {
           </div>
           {savedResumes && savedResumes.length > 0 && (
             <div className="text-left space-y-2">
-              {savedResumes.map(r => (
+              {savedResumes.map((r: any) => (
                 <button
                   key={r._id}
                   onClick={() => { setActiveId(r._id); setData({ title: r.title, templateId: r.templateId, basics: r.basics, work: r.work, education: r.education, skills: r.skills, projects: r.projects }); }}
@@ -257,11 +259,32 @@ export default function ResumeBuilder() {
         </div>
       </div>
 
+      <div className="flex lg:hidden bg-surface p-1 rounded-xl mt-6 border border-border gap-1 shrink-0">
+        <button 
+          onClick={() => setActiveView("editor")}
+          className={cn(
+            "flex-1 py-2 text-xs font-bold rounded-lg transition-all",
+            activeView === "editor" ? "bg-primary text-white shadow-sm" : "text-text-secondary hover:bg-page-bg"
+          )}
+        >
+          Editor
+        </button>
+        <button 
+          onClick={() => setActiveView("preview")}
+          className={cn(
+            "flex-1 py-2 text-xs font-bold rounded-lg transition-all",
+            activeView === "preview" ? "bg-primary text-white shadow-sm" : "text-text-secondary hover:bg-page-bg"
+          )}
+        >
+          Preview
+        </button>
+      </div>
+
       {/* Split Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0 mt-6 lg:mt-8">
 
         {/* LEFT — Editor Forms */}
-        <div className="overflow-y-auto space-y-4 pr-1 max-h-[calc(100vh-200px)]">
+        <div className={cn("overflow-y-auto space-y-4 pr-1 max-h-[calc(100vh-200px)]", activeView !== "editor" && "hidden lg:block")}>
 
           {/* Basics */}
           <SectionAccordion title="Personal Info" icon={User}>
@@ -389,8 +412,11 @@ export default function ResumeBuilder() {
         </div>
 
         {/* RIGHT — Live Preview */}
-        <div className="hidden lg:block overflow-y-auto max-h-[calc(100vh-200px)] rounded-2xl border border-border-subtle bg-white shadow-lg">
-          <div style={{ transform: "scale(0.82)", transformOrigin: "top left", width: "122%", minHeight: "800px" }}>
+        <div className={cn(
+          "overflow-y-auto max-h-[calc(100vh-200px)] rounded-2xl border border-border-subtle bg-white shadow-lg",
+          activeView !== "preview" && "hidden lg:block"
+        )}>
+          <div className="origin-top-left scale-[0.55] sm:scale-[0.82] w-[181%] sm:w-[122%] min-h-[800px]">
             <div ref={printRef}>
               {data.templateId === "harvard"
                 ? <HarvardTemplate data={data} />

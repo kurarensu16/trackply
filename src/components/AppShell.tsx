@@ -18,6 +18,17 @@ export default function AppShell() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsSidebarCollapsed(true);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Fetch settings from Convex
   const settings = useQuery(api.settings.get);
 
@@ -51,9 +62,19 @@ export default function AppShell() {
 
   return (
     <div className="flex min-h-screen bg-page-bg text-text-primary transition-colors duration-300">
+      {!isSidebarCollapsed && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden animate-in fade-in"
+          onClick={() => setIsSidebarCollapsed(true)}
+        />
+      )}
+
       <Sidebar 
         currentPage={page} 
-        onPageChange={setPage} 
+        onPageChange={(p) => {
+          setPage(p);
+          if (window.innerWidth < 768) setIsSidebarCollapsed(true);
+        }} 
         isCollapsed={isSidebarCollapsed}
       />
 
@@ -63,7 +84,7 @@ export default function AppShell() {
           onAddApplication={() => setShowAddForm(true)}
         />
         
-        <main className="flex-1 px-8 py-10 max-w-7xl w-full mx-auto">
+        <main className="flex-1 px-4 py-8 md:px-8 md:py-10 max-w-7xl w-full mx-auto">
           {page === "dashboard" && <Dashboard />}
           {page === "pipeline" && <Pipeline />}
           {page === "applications" && <Applications />}

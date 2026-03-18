@@ -45,7 +45,7 @@ export default function ActivityTimeline({ applicationId }: Props) {
         <div className="absolute left-[17px] top-4 bottom-4 w-px bg-border" />
 
         <div className="space-y-0">
-          {visibleActivities.map((activity, index) => {
+          {visibleActivities.map((activity: any, index: number) => {
             const config = TYPE_CONFIG[activity.type] || TYPE_CONFIG.edited;
             const Icon = config.icon;
             const isFirst = index === 0;

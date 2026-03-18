@@ -71,7 +71,7 @@ export default function InterviewSection({ applicationId }: Props) {
       {/* Interview List */}
       {interviews && interviews.length > 0 ? (
         <div className="space-y-3">
-          {interviews.map((interview) => {
+          {interviews.map((interview: any) => {
             const config = TYPE_CONFIG[interview.type] || TYPE_CONFIG.other;
             const Icon = config.icon;
             const isExpanded = expandedId === interview._id;

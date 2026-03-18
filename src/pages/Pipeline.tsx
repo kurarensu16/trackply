@@ -2,6 +2,7 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useState, useRef } from "react";
 import { Search } from "lucide-react";
+import { cn } from "../lib/utils";
 import type { Doc } from "../../convex/_generated/dataModel";
 import KanbanColumn from "../components/pipeline/KanbanColumn";
 import AppDetail from "../components/applications/AppDetail";
@@ -20,6 +21,7 @@ export default function Pipeline() {
   const [selected, setSelected] = useState<Doc<"applications"> | null>(null);
   const dragging = useRef<Doc<"applications"> | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState<string>("saved");
 
   if (applications === undefined) {
     return null;
@@ -61,17 +63,50 @@ export default function Pipeline() {
         </div>
       </div>
 
-      <div className="flex gap-6 overflow-x-auto pb-6 -mx-1 px-1 custom-scrollbar">
+      <div className="flex md:hidden bg-surface p-1.5 rounded-xl mb-2 gap-1 overflow-x-auto custom-scrollbar border border-border sticky top-4 z-10 shadow-sm">
+        {STAGES.map(({ key, label }) => {
+          const count = byStage(key).length;
+          return (
+            <button
+              key={key}
+              onClick={() => setActiveTab(key)}
+              className={cn(
+                "flex-1 py-2 px-4 text-xs font-bold rounded-lg transition-all whitespace-nowrap flex items-center justify-center gap-2",
+                activeTab === key 
+                  ? "bg-primary text-white shadow-md" 
+                  : "text-text-secondary hover:text-text-primary hover:bg-page-bg"
+              )}
+            >
+              {label}
+              <span className={cn(
+                "px-1.5 py-0.5 rounded-md text-[10px]",
+                activeTab === key ? "bg-white/20 text-white" : "bg-border-subtle text-text-muted"
+              )}>
+                {count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="flex xl:gap-6 gap-4 overflow-x-auto pb-6 -mx-1 px-1 custom-scrollbar snap-x snap-mandatory md:snap-none">
         {STAGES.map(({ key, label }) => (
-          <KanbanColumn
-            key={key}
-            stage={key}
-            label={label}
-            apps={byStage(key)}
-            onDrop={handleDrop}
-            onCardClick={setSelected}
-            onDragStart={(app) => { dragging.current = app; }}
-          />
+          <div 
+            key={key} 
+            className={cn(
+              "h-full flex-1 snap-center md:snap-align-none transition-all duration-300",
+              activeTab === key ? "block min-w-full md:min-w-0" : "hidden md:block"
+            )}
+          >
+            <KanbanColumn
+              stage={key}
+              label={label}
+              apps={byStage(key)}
+              onDrop={handleDrop}
+              onCardClick={setSelected}
+              onDragStart={(app) => { dragging.current = app; }}
+            />
+          </div>
         ))}
       </div>
 

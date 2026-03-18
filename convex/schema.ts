@@ -5,6 +5,18 @@ import { authTables } from "@convex-dev/auth/server";
 export default defineSchema({
   ...authTables,
 
+  notifications: defineTable({
+    userId: v.string(),
+    type: v.union(v.literal("interview_reminder"), v.literal("application_stalled"), v.literal("system")),
+    title: v.string(),
+    message: v.string(),
+    link: v.optional(v.string()), // URL to redirect
+    isRead: v.boolean(),
+    createdAt: v.number(),
+  })
+  .index("by_user", ["userId"])
+  .index("by_user_unread", ["userId", "isRead"]),
+
   profile: defineTable({
     userId: v.string(),
     name: v.optional(v.string()),

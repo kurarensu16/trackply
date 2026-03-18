@@ -38,9 +38,9 @@ export default function Applications() {
     );
   }
 
-  const filteredApps = applications.filter(app => 
-    app.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    app.role.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredApps = applications.filter((app: any) => 
+    (app.company || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (app.role || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const getAvatarColor = (name: string) => {
@@ -83,8 +83,8 @@ export default function Applications() {
         </div>
       ) : (
         <div className="card-premium overflow-hidden border-none shadow-premium transition-all">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+          <div className="overflow-x-auto custom-scrollbar">
+            <table className="w-full text-left border-collapse min-w-[700px]">
               <thead>
                 <tr className="bg-page-bg/50 border-b border-border-subtle text-[10px] font-bold text-text-secondary uppercase tracking-wider">
                   <th className="px-6 py-4 font-bold">Opportunity</th>

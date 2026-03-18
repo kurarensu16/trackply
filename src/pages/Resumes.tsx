@@ -145,7 +145,7 @@ export default function Resumes() {
       {/* Resume Grid */}
       {resumes && resumes.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {resumes.map((resume) => {
+          {resumes.map((resume: any) => {
             const isEditingSkills = editingSkillsId === resume._id;
 
             return (
@@ -190,7 +190,7 @@ export default function Resumes() {
 
                   {resume.skills && resume.skills.length > 0 && (
                     <div className="flex flex-wrap gap-1.5">
-                      {resume.skills.slice(0, 6).map((skill) => (
+                      {resume.skills.slice(0, 6).map((skill: string) => (
                         <span
                           key={skill}
                           className="px-2 py-0.5 bg-surface-muted border border-border-subtle text-[9px] font-bold text-text-secondary rounded-md"

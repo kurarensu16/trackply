@@ -166,7 +166,7 @@ export default function Dashboard() {
           </div>
           <div className="space-y-4">
             {funnel && funnel.length > 0 ? (
-              funnel.map((stage, i) => (
+              funnel.map((stage: any, i: number) => (
                 <div key={stage.stage} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -220,7 +220,7 @@ export default function Dashboard() {
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {upcomingInterviews.slice(0, 6).map((interview) => {
+            {upcomingInterviews.slice(0, 6).map((interview: any) => {
               const TypeIcon = INTERVIEW_TYPE_ICONS[interview.type] || Users;
               return (
                 <div
@@ -270,7 +270,7 @@ export default function Dashboard() {
           </div>
           <div className="space-y-4">
             {skillGaps && skillGaps.length > 0 ? (
-              skillGaps.map((skill) => (
+              skillGaps.map((skill: any) => (
                 <div key={skill.skill} className="space-y-1.5">
                   <div className="flex justify-between text-[10px] font-bold">
                     <span className="text-text-primary">{skill.skill}</span>
@@ -300,7 +300,7 @@ export default function Dashboard() {
           </div>
           <div className="divide-y divide-border-subtle">
             {sources && sources.length > 0 ? (
-              sources.map((src, i) => {
+              sources.map((src: any, i: number) => {
                 const colors = ["bg-blue-600", "bg-purple-600", "bg-primary", "bg-amber-600", "bg-green-600"];
                 return (
                   <div key={src.source} className="px-6 py-4 flex items-center justify-between hover:bg-page-bg transition-colors">
@@ -346,7 +346,7 @@ export default function Dashboard() {
           </div>
           <div className="space-y-3">
             {recentActivity && recentActivity.length > 0 ? (
-              recentActivity.map((act) => {
+              recentActivity.map((act: any) => {
                 const typeColors: Record<string, string> = {
                   created: "bg-green-500",
                   stage_change: "bg-blue-500",
